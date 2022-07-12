@@ -1,11 +1,23 @@
 # Entitlements Stacks Demo
 
 This demo setup shows how the Entitlements system type can use Stacks to implement both central and specific policies
-that authorize API access. The demo setup contains two region specific API policies and a Stack enforcing policies
-over both regions. In this scenario most policies are common between the regions but each region has a different
-dataset (list of managers) and some region-specific policies.
+that authorize API access.
 
 Note that this demo requires a [Styra DAS](https://www.styra.com/styra-das/) tenant. You can request one at https://signup.styra.com.
+
+## Organizing Policies into Stacks and Systems
+
+This demo contains two Systems. Each System contains the policies applied to a regional API:
+* api-region1
+* api-region2
+
+The goal is for both regions to have mostly similar policies but allow for deviations. `api-region2` doesn't specify any
+region-specific policies while api-region1 does. 
+Both systems inherit policies from the Stack `api-master-policies`. All policies defined in the Stack are applied to both
+Systems. For this to work the Systems have to define a policy called `enforce` in the `policy` package.
+
+The policies in the `api-master-policies` Stack reference a dataset called `managers`. This dataset isn't defined in the
+Stack but in each regional System. Each region is expected to have a different set of managers.
 
 ## Installation
 
