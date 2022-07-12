@@ -1,0 +1,11 @@
+{
+  "isa@acme.org": {
+    "department": "marketing"
+  },
+  "jane@acme.org": {
+    "department": "engineering"
+  },
+  "theo@acme.org": {
+    "department": "finance"
+  }
+}
