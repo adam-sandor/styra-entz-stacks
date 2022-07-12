@@ -26,6 +26,8 @@ Styra DAS using the Preview functionality.
 Here are some sample inputs you can try. You can paste these straight into the input box in Styra DAS or use them as the
 payload in requests to OPA (see example request further down).
 
+![](img/styra-das-preview.png)
+
 ### Sample 1
 ```json
 {
@@ -58,3 +60,20 @@ This will be allowed in System api-region2 because Eve is listed as a manager th
 be denied in api-region1 as the list of managers is different there. The policy itself is defined on the Stack level but
 the data is region specific.
 
+### Testing with OPA
+
+To test the policies in a running OPA instance you have to download the configuration from Styra DAS for either the api-region1
+or api-region2 Systems. This can be found under System/Settings/Install/OPA CLI. You can find the exact commands to download
+the configuration and run OPA with it.
+
+When testing the above inputs with a running OPA make sure to put the input under the `input` key in the payload and
+use the `/main/main` path for the policy:
+
+```shell
+curl -X POST localhost:8181/v1/data/main/main -d '{
+  "input":{
+    "subject":"adam@styra.com",
+    "resource": "/api/v1/salary/adam@acme.org",
+    "action": "GET"}
+  }' 
+```
